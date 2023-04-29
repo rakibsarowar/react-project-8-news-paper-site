@@ -13,21 +13,25 @@ const auth = getAuth(app);
 const AuthProvider = ({children}) => {
 
     // Step 08.2 -------- Get Current User data ------------------------------
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     // step 5 ------------------------------------
 
     // step 6 ------------sign up - auth form firebase ----------------------
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
     
     // step 7 ------------Log in - auth form firebase ----------------------
     const signIn = (email, password) =>{
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
     // Step 09 --------Log out --------------------------------------------
     const logOut = () =>{
+        setLoading(true);
         return signOut(auth);
     }
 
@@ -36,6 +40,7 @@ const AuthProvider = ({children}) => {
         const unSubscribe = onAuthStateChanged(auth, loggedUser=>{
             console.log('logged User found')
             setUser(loggedUser)
+            setLoading(false);
         })
         return() => {
             unSubscribe();
@@ -45,6 +50,7 @@ const AuthProvider = ({children}) => {
     // Step 02 -----------------------------
     const authInfo = {
         user,
+        loading,
         createUser,
         signIn, 
         logOut
