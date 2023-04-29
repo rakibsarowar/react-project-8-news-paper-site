@@ -1,13 +1,40 @@
 import React from 'react';
+import { useContext } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { authContext } from '../../../providers/AuthProvider';
 
 const Login = () => {
+    // Step 01 --- for firebase login ---------------------------------------------------
+    const {signIn} = useContext(authContext);
+    
+    // Step 01.1 --- for firebase login ---------------------------------------------------
+    const handleLogin = event => {
+        event.preventDefault();
+
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password)
+
+        signIn(email, password)
+        .then(result =>{
+            const loggedUser = result.user;
+            console.log(loggedUser)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    }
+
+
+
+
     return (
         <Container className='mx-auto w-25'>
             <h2>Please login</h2>
 
-            <Form>
+            <Form onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" name='email' placeholder="Enter email" required />
