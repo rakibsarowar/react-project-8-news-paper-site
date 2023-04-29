@@ -1,26 +1,31 @@
 import React from 'react';
 import { useContext } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../providers/AuthProvider';
 
 const Login = () => {
     // Step 01 --- for firebase login ---------------------------------------------------
     const {signIn} = useContext(authContext);
-    
-    // Step 01.1 --- for firebase login ---------------------------------------------------
-    const handleLogin = event => {
-        event.preventDefault();
 
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password)
-
-        signIn(email, password)
-        .then(result =>{
-            const loggedUser = result.user;
-            console.log(loggedUser)
+   // Step 02 ---------------private routing - use Navigate --------------
+   const navigate = useNavigate();
+   
+   // Step 01.1 --- for firebase login ---------------------------------------------------
+   const handleLogin = event => {
+       event.preventDefault();
+       
+       const form = event.target;
+       const email = form.email.value;
+       const password = form.password.value;
+       console.log(email, password)
+       
+       signIn(email, password)
+       .then(result =>{
+           const loggedUser = result.user;
+           console.log(loggedUser)
+           // Step 02 ---------------private routing - use Navigate --------------
+            navigate('/category/0')
         })
         .catch(error =>{
             console.log(error)

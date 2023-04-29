@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { authContext } from '../../../providers/AuthProvider';
 
 const NavigationBar = () => {
 
     const { user, logOut } = useContext(authContext);
+    // Step 02 ---------------private routing --------------
+    const navigate = useNavigate();
 
     // Step 01 -----------Log out ------------------------
     const handleLogOut = () => {
