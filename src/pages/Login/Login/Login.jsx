@@ -1,17 +1,22 @@
 import React from 'react';
 import { useContext } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../providers/AuthProvider';
 
 const Login = () => {
     // Step 01 --- for firebase login ---------------------------------------------------
     const {signIn} = useContext(authContext);
 
-   // Step 02 ---------------private routing - use Navigate --------------
+   // Step 02 ---------------private routing - use Navigate -----------------------------
    const navigate = useNavigate();
    
-   // Step 01.1 --- for firebase login ---------------------------------------------------
+    // Step 03 --------- rerouting after login-------------------------------------------
+    const location = useLocation();
+    console.log(location);
+    const from = location.state?.pathname    || '/category/0'
+
+   // Step 01.1 --- for firebase login ---------------------------
    const handleLogin = event => {
        event.preventDefault();
        
@@ -25,7 +30,7 @@ const Login = () => {
            const loggedUser = result.user;
            console.log(loggedUser)
            // Step 02 ---------------private routing - use Navigate --------------
-            navigate('/category/0')
+            navigate(from)
         })
         .catch(error =>{
             console.log(error)
