@@ -30,7 +30,7 @@ const Login = () => {
            const loggedUser = result.user;
            console.log(loggedUser)
            // Step 02 ---------------private routing - use Navigate --------------
-            navigate(from)
+            navigate(from, {replace: true})
         })
         .catch(error =>{
             console.log(error)
