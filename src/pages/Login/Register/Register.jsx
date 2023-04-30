@@ -52,6 +52,9 @@ const Register = () => {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" name='accept' label="Check me out" />
                 </Form.Group>
+                
+                {/* 64-5 --9.07 Terms & Condition */}
+
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
